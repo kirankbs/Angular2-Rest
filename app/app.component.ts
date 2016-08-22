@@ -1,7 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Pizza } from './Pizza';
 import { Toppings } from './Toppings';
 import { Crust } from './Crust';
+import { PizzaService} from './pizza.service';
+
 @Component({
     selector: 'pizza-delivery',
     template: `
@@ -16,17 +18,28 @@ import { Crust } from './Crust';
     </ul>
     <pizza-detail [pizza]="selectedPizza"></pizza-detail>
     `,
-    styleUrls: ['app/app.component.css']
+    styleUrls: ['app/app.component.css'],
+    providers: [PizzaService]
 })
 
-export class AppComponent{
+export class AppComponent implements OnInit{
+
+    ngOnInit(): void {
+        this.getPizzas();
+    }
+
+    constructor(private pizzaService: PizzaService){}
 
     title = "Online PizzaDelivery"
-    pizzas = pizzasList
+    pizzas:Pizza[];
     selectedPizza: Pizza;
 
     onSelect(pizza: Pizza): void {
     this.selectedPizza = pizza;
+      }
+
+    getPizzas(): void {
+        this.pizzaService.getPizzas().then(pizzas => this.pizzas = pizzas);
   }
 
 }
@@ -38,7 +51,7 @@ export class AppComponent{
     {pizzaName: "Zesty Chicken",toppingsList: "Tomato, Barbeque",crust: "Regular",price: 150},
     {pizzaName: "Zesty Chicken",toppingsList: "Tomato, Barbeque",crust: "Regular",price: 150},
     {"pizzaName":"Margherita","price":150.0,"toppingsList":"Tomato","crust":"Regular"}
-]*/
+]
 
 const pizzasList: Pizza[] = [
     {"pizzaName":"Margherita","price":150.0,"toppingsList":[{"toppingName":"Tomato","price":10.0}],"crust":{"name":"Regular","price":0.0}},
@@ -48,4 +61,4 @@ const pizzasList: Pizza[] = [
     {"pizzaName":"Peppy Paneer","price":230.0,"toppingsList":[{"toppingName":"Jalapeno","price":15.0},{"toppingName":"Olives","price":15.0}],"crust":{"name":"Regular","price":0.0}},
     {"pizzaName":"Zesty Chicken","price":280.0,"toppingsList":[{"toppingName":"Barbeque Chicken","price":100.0}],"crust":{"name":"Regular","price":0.0}},
     {"pizzaName":"Chicken Maxicana","price":300.0,"toppingsList":[{"toppingName":"Cheese","price":20.0},{"toppingName":"Barbeque Chicken","price":100.0},{"toppingName":"Jalapeno","price":15.0}],"crust":{"name":"Regular","price":0.0}}
-    ]
+    ]*/

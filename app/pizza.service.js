@@ -8,16 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var mock_pizzas_1 = require('./mock-pizzas');
 var core_1 = require('@angular/core');
-var PizzaServices = (function () {
-    function PizzaServices() {
+var PizzaService = (function () {
+    function PizzaService() {
+        this._pizzassUrl = 'http://172.17.8.101:9082/pizzas';
     }
-    PizzaServices.prototype.getPizzas = function () { };
-    PizzaServices = __decorate([
+    PizzaService.prototype.getPizzas = function () {
+        return Promise.resolve(mock_pizzas_1.PizzasList);
+    };
+    PizzaService.prototype.getPizza = function () { };
+    PizzaService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], PizzaServices);
-    return PizzaServices;
+    ], PizzaService);
+    return PizzaService;
 }());
-exports.PizzaServices = PizzaServices;
+exports.PizzaService = PizzaService;
 //# sourceMappingURL=pizza.service.js.map
