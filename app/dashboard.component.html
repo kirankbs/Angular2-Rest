@@ -1,0 +1,8 @@
+<h3>Top Pizzas</h3>
+<div class="grid grid-pad">
+  <div *ngFor="let pizza of pizzas" (click)="gotoDetail(pizza)" class="col-1-4">
+    <div class="module pizza">
+      <h4>{{pizza.pizzaName}}</h4>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div *ngIf="pizza">
+<h2>{{pizza.pizzaName}}</h2>
+<div><label>Toppings: </label><span *ngFor= "let topping of pizza.toppingsList">{{topping.toppingName}} </span></div>
+<div><label>Crust: </label>{{pizza.crust.name}}</div>
+<div><label>Price: </label>{{pizza.price}}</div>
+<div>
+    <label>Toppings: </label>
+    <div *ngFor= "let topping of pizza.toppingsList"><input [(ngModel)]="topping.toppingName" placeholder="topping"></div>
+</div>
+<button (click)="goBack()">Back</button>
+<button (click)="save()">Save</button>

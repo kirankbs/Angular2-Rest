@@ -1,23 +1,53 @@
-import { Component, Input} from '@angular/core';
-
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { PizzaService } from './pizza.service';
 import { Pizza } from "./Pizza";
 
 @Component({
     selector: 'pizza-detail',
-    template: `
-        <div *ngIf="pizza">
-        <h2>{{pizza.pizzaName}}</h2>
-        <div><label>Toppings: </label><span *ngFor= "let topping of pizza.toppingsList">{{topping.toppingName}} </span></div>
-        <div><label>Crust: </label>{{pizza.crust.name}}</div>
-        <div><label>Price: </label>{{pizza.price}}</div>
-        <div>
-            <label>Toppings: </label>
-            <div *ngFor= "let topping of pizza.toppingsList"><input [(ngModel)]="topping.toppingName" placeholder="topping"></div>
-        </div>
-    `
+    templateUrl: 'app/pizza-detail.component.html',
+    styleUrls: ['app/pizza-detail.component.css']
 })
 
-export class PizzaDetailComponent{
-@Input()
-pizza: Pizza;
+export class PizzaDetailComponent implements OnInit{
+@Input() pizza: Pizza;
+ @Output() close = new EventEmitter();
+  error: any;
+  navigated = false; 
+
+
+constructor(private pizzaService: PizzaService,private route: ActivatedRoute){}
+
+ngOnInit(): void {
+  this.route.params.forEach((params: Params) => {
+    if (params['name'] !== undefined) {
+    let name = params['name'];
+    this.pizzaService.getPizza(name).then(pizza => this.pizza = pizza);
+    } else {
+      this.navigated = false;
+      this.pizza = new Pizza();
+    }
+  });
+}
+
+
+/*goBack(): void {
+  window.history.back();
+}*/
+goBack(): void {
+  //this.close.emit(savedHero);
+  //if (this.navigated) { window.history.back(); }
+  window.history.back();
+}
+
+save(): void {
+  this.pizzaService
+      .save(this.pizza)
+      .then(pizza => {
+        this.pizza = pizza; // saved hero, w/ id if new
+        //this.goBack(pizza);
+      })
+      .catch(error => this.error = error); // TODO: Display error message
+}
+
 }
