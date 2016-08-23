@@ -50,3 +50,9 @@
         padding: 0.8em 0.7em 0 1em;
         position: relative;
     }
+
+  button.delete-button{
+    float:right;
+    background-color: gray !important;
+    color:white;
+  }

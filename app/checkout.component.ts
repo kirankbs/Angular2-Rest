@@ -20,6 +20,7 @@ export class CheckoutComponent implements OnInit{
 
     pizzas:Pizza[];
     selectedPizza: Pizza;
+    error: any;
 
     getPizzas(): void {
         this.checkoutService.getCheckoutPizzas().then(pizzas => this.pizzas = pizzas);
@@ -28,6 +29,11 @@ export class CheckoutComponent implements OnInit{
     onSelect(pizza: Pizza): void {
         this.selectedPizza = pizza;
         this.router.navigate(['detail',this.selectedPizza.pizzaName]);
+      }
+
+      deletePizza(pizza: Pizza, event: any): void {
+          event.stopPropagation();
+          this.pizzas = this.checkoutService.removePizza(pizza);
       }
 
 }

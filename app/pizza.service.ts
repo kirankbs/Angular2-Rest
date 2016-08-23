@@ -4,13 +4,17 @@ import {Injectable}                         from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
 import { Pizza }                            from './Pizza';
-import { PizzasList }                       from './mock-pizzas';
+import { Toppings }                          from './Toppings'
+import { Crust }                             from './Crust'   
+import { ToppingsList }                       from './mock-pizzas';
+import { CrustsList }                       from './mock-pizzas';
 
 @Injectable()
 export class PizzaService{
 
     //private _pizzassUrl = 'http://localhost:9082/pizzas';
     private _pizzassUrl = 'app/pizzas';
+    private _toppingsUrl = 'app/toppings';
 
     constructor(private http: Http){}
 
@@ -25,6 +29,13 @@ export class PizzaService{
                     .toPromise()
                     .then(response => response.json().data as Pizza[])
                     .catch(this.handleError);
+    }
+    getToppings(): Promise<Toppings[]> {
+              return new Promise(resolve => resolve(ToppingsList));
+    }
+
+    getCrusts(): Promise<Crust[]>{
+            return new Promise(resolve => resolve(CrustsList))
     }
 
     getPizza(name: String): Promise<Pizza> {

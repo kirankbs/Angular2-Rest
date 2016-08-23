@@ -21,7 +21,8 @@ export class CheckoutService{
         return new Promise(resolve => resolve(this.pizzas));
     }
 
-    removePizza(pizza: Pizza): Promise<Pizza[]> {
-        return new Promise(resolve => resolve(this.pizzas));
+    removePizza(pizza: Pizza): Pizza[] {
+        this.pizzas = this.pizzas.filter(p => p.pizzaName != pizza.pizzaName)
+        return this.pizzas;
     }
 }

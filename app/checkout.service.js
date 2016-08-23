@@ -24,8 +24,8 @@ var CheckoutService = (function () {
         return new Promise(function (resolve) { return resolve(_this.pizzas); });
     };
     CheckoutService.prototype.removePizza = function (pizza) {
-        var _this = this;
-        return new Promise(function (resolve) { return resolve(_this.pizzas); });
+        this.pizzas = this.pizzas.filter(function (p) { return p.pizzaName != pizza.pizzaName; });
+        return this.pizzas;
     };
     CheckoutService = __decorate([
         core_1.Injectable(), 

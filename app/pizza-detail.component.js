@@ -35,6 +35,8 @@ var PizzaDetailComponent = (function () {
                 _this.pizza = new Pizza_1.Pizza();
             }
         });
+        this.getToppings();
+        this.getCrusts();
     };
     PizzaDetailComponent.prototype.goBack = function (savedPizza) {
         if (savedPizza === void 0) { savedPizza = null; }
@@ -46,6 +48,20 @@ var PizzaDetailComponent = (function () {
     PizzaDetailComponent.prototype.save = function () {
         this.checkoutService.addToCheckout(this.pizza);
         this.router.navigate(['pizzas']);
+    };
+    PizzaDetailComponent.prototype.onSelectTopping = function (topping) {
+        this.pizza.toppingsList.push(topping);
+    };
+    PizzaDetailComponent.prototype.onSelectCrust = function (crust) {
+        this.pizza.crust = crust;
+    };
+    PizzaDetailComponent.prototype.getToppings = function () {
+        var _this = this;
+        this.pizzaService.getToppings().then(function (toppings) { return _this.toppings = toppings; });
+    };
+    PizzaDetailComponent.prototype.getCrusts = function () {
+        var _this = this;
+        this.pizzaService.getCrusts().then(function (crusts) { return _this.crusts = crusts; });
     };
     __decorate([
         core_1.Input(), 

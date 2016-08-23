@@ -11,11 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var http_1 = require('@angular/http');
 var core_1 = require('@angular/core');
 require('rxjs/add/operator/toPromise');
+var mock_pizzas_1 = require('./mock-pizzas');
+var mock_pizzas_2 = require('./mock-pizzas');
 var PizzaService = (function () {
     function PizzaService(http) {
         this.http = http;
         //private _pizzassUrl = 'http://localhost:9082/pizzas';
         this._pizzassUrl = 'app/pizzas';
+        this._toppingsUrl = 'app/toppings';
     }
     PizzaService.prototype.getPizzas = function () {
         var headers = new http_1.Headers([{
@@ -27,6 +30,12 @@ var PizzaService = (function () {
             .toPromise()
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
+    };
+    PizzaService.prototype.getToppings = function () {
+        return new Promise(function (resolve) { return resolve(mock_pizzas_1.ToppingsList); });
+    };
+    PizzaService.prototype.getCrusts = function () {
+        return new Promise(function (resolve) { return resolve(mock_pizzas_2.CrustsList); });
     };
     PizzaService.prototype.getPizza = function (name) {
         return this.getPizzas().then(function (pizzas) { return pizzas.find(function (pizza) { return pizza.pizzaName === name; }); });

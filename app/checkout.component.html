@@ -1,10 +1,11 @@
 <h2>Submit Order</h2>
     <ul class="pizzas">
         
-        <li *ngFor= "let pizza of pizzas" [class.selected]="pizza === selectedPizza" (click)="onSelect(pizza)">
+        <li *ngFor= "let pizza of pizzas">
             <b class="pizzaName">{{pizza.pizzaName}}</b><label class="PizzaPrice">{{pizza.price}}</label>
             <div><label class="Toppings">Toppings: </label><span *ngFor= "let topping of pizza.toppingsList">{{topping.toppingName}} </span></div>
             <div><label>Crust: </label>{{pizza.crust.name}}</div>
+            <button class="delete-button" (click)="deletePizza(pizza, $event)">Delete</button>
         </li>
     </ul>
 <button (click)="save()">Place Order</button>

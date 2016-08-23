@@ -27,6 +27,10 @@ var CheckoutComponent = (function () {
         this.selectedPizza = pizza;
         this.router.navigate(['detail', this.selectedPizza.pizzaName]);
     };
+    CheckoutComponent.prototype.deletePizza = function (pizza, event) {
+        event.stopPropagation();
+        this.pizzas = this.checkoutService.removePizza(pizza);
+    };
     CheckoutComponent = __decorate([
         core_1.Component({
             selector: 'pizza-checkout',

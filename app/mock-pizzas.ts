@@ -1,4 +1,6 @@
 import { Pizza } from './Pizza';
+import { Toppings } from './Toppings';
+import { Crust }    from './Crust'
 
 
 export const PizzasList: Pizza[] = [
@@ -10,3 +12,16 @@ export const PizzasList: Pizza[] = [
     {"pizzaName":"Zesty Chicken","price":280.0,"toppingsList":[{"toppingName":"Barbeque Chicken","price":100.0}],"crust":{"name":"Regular","price":0.0}},
     {"pizzaName":"Chicken Maxicana","price":300.0,"toppingsList":[{"toppingName":"Cheese","price":20.0},{"toppingName":"Barbeque Chicken","price":100.0},{"toppingName":"Jalapeno","price":15.0}],"crust":{"name":"Regular","price":0.0}}
     ];
+export const ToppingsList: Toppings[] = [
+    {"toppingName":"Olives","price":15.0},
+    {"toppingName":"Jalapeno","price":15.0},
+    {"toppingName":"Cheese","price":20.0},
+    {"toppingName":"Barbeque Chicken","price":100.0},
+    {"toppingName":"Tomato","price":10.0}
+    ]; 
+
+export const CrustsList: Crust[] = [
+    {"name":"Regular","price":0.0},
+    {"name":"Pan Pizza","price":100.0},
+    {"name":"Thin Crust","price":150.0},
+    {"name":"Cheese Burst","price":200.0}];

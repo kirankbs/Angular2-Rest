@@ -5,6 +5,20 @@ label {
   color: #607D8B;
   font-weight: bold;
 }
+#toppingsList{
+  display: inline-block;
+  width: 10em;
+  margin: 2em 2em 0 0;
+  color: #607D8B;
+  font-weight: bold;
+}
+#crustList{
+  display: inline-block;
+  width: 10em;
+  margin: 2em 2em 0 0;
+  color: #607D8B;
+  font-weight: bold;
+}
 input {
   height: 2em;
   font-size: 1em;
@@ -27,3 +41,24 @@ button:disabled {
   color: #ccc; 
   cursor: auto;
 }
+
+  .toppings {
+      margin: 0 0 1em 1em;
+      list-style-type: none;
+      padding: 0;
+      width: 30em;
+    }
+    .toppings li {
+      cursor: pointer;
+      position: relative;
+      left: 0;
+    }
+    .toppings li:hover {
+      color: #607D8B;
+      left: .2em;
+    }
+    .ToppingsPrice{
+        color: black;
+        padding: 0.8em 0.7em 0 1em;
+        position: relative;
+    }

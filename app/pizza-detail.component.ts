@@ -5,6 +5,8 @@ import { ActivatedRoute, Params, Router }      from '@angular/router';
 import { PizzaService }                from './pizza.service';
 import { Pizza }                       from "./Pizza";
 import { CheckoutService }             from './checkout.service'
+import { Toppings }                     from './Toppings' 
+import { Crust }                       from './Crust'
 
 @Component({
     selector: 'pizza-detail',
@@ -15,6 +17,9 @@ import { CheckoutService }             from './checkout.service'
 export class PizzaDetailComponent implements OnInit{
 @Input() pizza: Pizza;
 @Output() close = new EventEmitter();
+toppings: Toppings[];
+crusts: Crust[];
+
 error: any;
 navigated = false; 
 
@@ -35,6 +40,9 @@ ngOnInit(): void {
       this.pizza = new Pizza();
     }
   });
+
+  this.getToppings();
+  this.getCrusts();
 }
 
 
@@ -48,4 +56,18 @@ save(): void {
   this.router.navigate(['pizzas']);
 }
 
+onSelectTopping(topping: Toppings): void {
+  this.pizza.toppingsList.push(topping)
+}
+
+onSelectCrust(crust: Crust): void {
+  this.pizza.crust= crust;
+}
+
+getToppings(): void {
+  this.pizzaService.getToppings().then(toppings => this.toppings = toppings);
+}
+getCrusts(): void {
+  this.pizzaService.getCrusts().then(crusts => this.crusts = crusts);
+}
 }
