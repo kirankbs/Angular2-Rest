@@ -1,6 +1,7 @@
 <div *ngIf="pizza">
 <h2>{{pizza.pizzaName}}</h2>
 <div><label>Toppings: </label><span *ngFor= "let topping of pizza.toppingsList">{{topping.toppingName}} </span></div>
+
 <div><label>Crust: </label>{{pizza.crust.name}}</div>
 <div><label>Price: </label>{{pizza.price}}</div>
 <div>

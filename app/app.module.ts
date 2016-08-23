@@ -34,9 +34,7 @@ import { CheckoutService }      from './checkout.service'
       CheckoutComponent
       ],
       providers: [
-          PizzaService,CheckoutService,
-          { provide: XHRBackend, useClass: InMemoryBackendService }, // in-mem server
-          { provide: SEED_DATA,  useClass: InMemoryDataService }     // in-mem server data
+          PizzaService,CheckoutService
       ],
   bootstrap:    [ 
       AppComponent 

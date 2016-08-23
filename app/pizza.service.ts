@@ -12,8 +12,8 @@ import { CrustsList }                       from './mock-pizzas';
 @Injectable()
 export class PizzaService{
 
-    //private _pizzassUrl = 'http://localhost:9082/pizzas';
-    private _pizzassUrl = 'app/pizzas';
+    private _pizzassUrl = 'http://localhost:9082/pizzas';
+    //private _pizzassUrl = 'app/pizzas';
     private _toppingsUrl = 'app/toppings';
 
     constructor(private http: Http){}

@@ -16,8 +16,8 @@ var mock_pizzas_2 = require('./mock-pizzas');
 var PizzaService = (function () {
     function PizzaService(http) {
         this.http = http;
-        //private _pizzassUrl = 'http://localhost:9082/pizzas';
-        this._pizzassUrl = 'app/pizzas';
+        this._pizzassUrl = 'http://localhost:9082/pizzas';
+        //private _pizzassUrl = 'app/pizzas';
         this._toppingsUrl = 'app/toppings';
     }
     PizzaService.prototype.getPizzas = function () {

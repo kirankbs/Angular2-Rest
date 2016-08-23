@@ -57,8 +57,33 @@ button:disabled {
       color: #607D8B;
       left: .2em;
     }
+    .AddedTops {
+      margin: 0 0 1em 1em;
+      padding: 0;
+      cursor: pointer;
+      position: relative;
+      left: 0;
+      width: 30em;
+    }
+
+    .AddedTops :hover {
+      color: #607D8B;
+      left: .2em;
+    }
+
     .ToppingsPrice{
         color: black;
         padding: 0.8em 0.7em 0 1em;
         position: relative;
+    }
+    .CrustPrice{
+        color: black;
+        padding: 0.8em 0.7em 0 1em;
+        position: relative;
+    }
+    #availToppings{
+      float: right;
+    }
+    #availCrusts{
+      float: left;
     }

@@ -26,6 +26,7 @@ var PizzasComponent = (function () {
     PizzasComponent.prototype.getPizzas = function () {
         var _this = this;
         this.pizzaService.getPizzas().then(function (pizzas) { return _this.pizzas = pizzas; });
+        console.info(this.pizzas + "***********");
     };
     PizzasComponent.prototype.gotoDetail = function () {
         this.router.navigate(['detail', this.selectedPizza.pizzaName]);
