@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PizzasComponent } from './pizzas.component';
 import { DashboardComponent } from './dashboard.component'
 import { PizzaDetailComponent } from './pizza-detail.component'
+import { CheckoutComponent }    from './checkout.component'
 
 const appRoutes: Routes = [
     {
@@ -20,6 +21,10 @@ const appRoutes: Routes = [
     {
         path: 'pizzas',
         component: PizzasComponent
+    },
+    {
+        path: 'checkout',
+        component: CheckoutComponent
     }
 ];
 

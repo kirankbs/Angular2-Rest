@@ -21,6 +21,8 @@ var pizza_detail_component_1 = require('./pizza-detail.component');
 var pizza_service_1 = require('./pizza.service');
 var app_routing_1 = require('./app.routing');
 var dashboard_component_1 = require('./dashboard.component');
+var checkout_component_1 = require('./checkout.component');
+var checkout_service_1 = require('./checkout.service');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -36,10 +38,11 @@ var AppModule = (function () {
                 app_component_1.AppComponent,
                 pizzas_component_1.PizzasComponent,
                 pizza_detail_component_1.PizzaDetailComponent,
-                dashboard_component_1.DashboardComponent
+                dashboard_component_1.DashboardComponent,
+                checkout_component_1.CheckoutComponent
             ],
             providers: [
-                pizza_service_1.PizzaService,
+                pizza_service_1.PizzaService, checkout_service_1.CheckoutService,
                 { provide: http_2.XHRBackend, useClass: angular2_in_memory_web_api_1.InMemoryBackendService },
                 { provide: angular2_in_memory_web_api_1.SEED_DATA, useClass: in_memory_data_service_1.InMemoryDataService } // in-mem server data
             ],

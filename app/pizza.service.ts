@@ -1,10 +1,10 @@
-import { Headers, Http, Response }             from '@angular/http'
-import {Injectable}         from '@angular/core';
+import { Headers, Http, Response }          from '@angular/http'
+import {Injectable}                         from '@angular/core';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Pizza }            from './Pizza';
-import { PizzasList }       from './mock-pizzas';
+import { Pizza }                            from './Pizza';
+import { PizzasList }                       from './mock-pizzas';
 
 @Injectable()
 export class PizzaService{
@@ -25,12 +25,6 @@ export class PizzaService{
                     .toPromise()
                     .then(response => response.json().data as Pizza[])
                     .catch(this.handleError);
-    }
-    
-    getPizzasSlowly(): Promise<Pizza[]>{
-        return new Promise(resolve => 
-            setTimeout(() => resolve(PizzasList),2000)
-        );
     }
 
     getPizza(name: String): Promise<Pizza> {
@@ -68,6 +62,8 @@ export class PizzaService{
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let url = `${this._pizzassUrl}/${pizza.pizzaName}`;
+    console.info(url);
+    console.info(JSON.stringify(pizza));
     return this.http
                .put(url, JSON.stringify(pizza), {headers: headers})
                .toPromise()

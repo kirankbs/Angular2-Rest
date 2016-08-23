@@ -1,4 +1,4 @@
-<h2>Pizzas</h2>
+<h2>Submit Order</h2>
     <ul class="pizzas">
         
         <li *ngFor= "let pizza of pizzas" [class.selected]="pizza === selectedPizza" (click)="onSelect(pizza)">
@@ -7,10 +7,4 @@
             <div><label>Crust: </label>{{pizza.crust.name}}</div>
         </li>
     </ul>
-    <button (click)="checkout()">Checkout</button>
-   <!-- <div *ngIf="selectedPizza">
-        <h2>
-         {{selectedPizza.pizzaName | uppercase}} is my Pizza
-         </h2>
-        <button (click)="gotoDetail()">View Details</button>
-    </div> -->
+<button (click)="save()">Place Order</button>

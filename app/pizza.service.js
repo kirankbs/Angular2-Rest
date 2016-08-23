@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var http_1 = require('@angular/http');
 var core_1 = require('@angular/core');
 require('rxjs/add/operator/toPromise');
-var mock_pizzas_1 = require('./mock-pizzas');
 var PizzaService = (function () {
     function PizzaService(http) {
         this.http = http;
@@ -28,11 +27,6 @@ var PizzaService = (function () {
             .toPromise()
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
-    };
-    PizzaService.prototype.getPizzasSlowly = function () {
-        return new Promise(function (resolve) {
-            return setTimeout(function () { return resolve(mock_pizzas_1.PizzasList); }, 2000);
-        });
     };
     PizzaService.prototype.getPizza = function (name) {
         return this.getPizzas().then(function (pizzas) { return pizzas.find(function (pizza) { return pizza.pizzaName === name; }); });
@@ -65,6 +59,8 @@ var PizzaService = (function () {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         var url = this._pizzassUrl + "/" + pizza.pizzaName;
+        console.info(url);
+        console.info(JSON.stringify(pizza));
         return this.http
             .put(url, JSON.stringify(pizza), { headers: headers })
             .toPromise()

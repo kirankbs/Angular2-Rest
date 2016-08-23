@@ -1,7 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { PizzaService } from './pizza.service';
-import { Pizza } from "./Pizza";
+import { Component, EventEmitter, 
+  Input, OnInit, Output }              from '@angular/core';
+import { ActivatedRoute, Params, Router }      from '@angular/router';
+
+import { PizzaService }                from './pizza.service';
+import { Pizza }                       from "./Pizza";
+import { CheckoutService }             from './checkout.service'
 
 @Component({
     selector: 'pizza-detail',
@@ -11,17 +14,21 @@ import { Pizza } from "./Pizza";
 
 export class PizzaDetailComponent implements OnInit{
 @Input() pizza: Pizza;
- @Output() close = new EventEmitter();
-  error: any;
-  navigated = false; 
+@Output() close = new EventEmitter();
+error: any;
+navigated = false; 
 
 
-constructor(private pizzaService: PizzaService,private route: ActivatedRoute){}
+constructor(private pizzaService: PizzaService,
+            private checkoutService: CheckoutService,
+            private route: ActivatedRoute,
+            private router: Router){}
 
 ngOnInit(): void {
   this.route.params.forEach((params: Params) => {
     if (params['name'] !== undefined) {
     let name = params['name'];
+    this.navigated = true;
     this.pizzaService.getPizza(name).then(pizza => this.pizza = pizza);
     } else {
       this.navigated = false;
@@ -31,23 +38,14 @@ ngOnInit(): void {
 }
 
 
-/*goBack(): void {
-  window.history.back();
-}*/
-goBack(): void {
-  //this.close.emit(savedHero);
-  //if (this.navigated) { window.history.back(); }
-  window.history.back();
-}
+goBack(savedPizza: Pizza = null): void {
+    this.close.emit(savedPizza);
+    if (this.navigated) { window.history.back(); }
+  }
 
 save(): void {
-  this.pizzaService
-      .save(this.pizza)
-      .then(pizza => {
-        this.pizza = pizza; // saved hero, w/ id if new
-        //this.goBack(pizza);
-      })
-      .catch(error => this.error = error); // TODO: Display error message
+  this.checkoutService.addToCheckout(this.pizza);
+  this.router.navigate(['pizzas']);
 }
 
 }

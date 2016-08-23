@@ -12,10 +12,13 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var pizza_service_1 = require('./pizza.service');
 var Pizza_1 = require("./Pizza");
+var checkout_service_1 = require('./checkout.service');
 var PizzaDetailComponent = (function () {
-    function PizzaDetailComponent(pizzaService, route) {
+    function PizzaDetailComponent(pizzaService, checkoutService, route, router) {
         this.pizzaService = pizzaService;
+        this.checkoutService = checkoutService;
         this.route = route;
+        this.router = router;
         this.close = new core_1.EventEmitter();
         this.navigated = false;
     }
@@ -24,6 +27,7 @@ var PizzaDetailComponent = (function () {
         this.route.params.forEach(function (params) {
             if (params['name'] !== undefined) {
                 var name_1 = params['name'];
+                _this.navigated = true;
                 _this.pizzaService.getPizza(name_1).then(function (pizza) { return _this.pizza = pizza; });
             }
             else {
@@ -32,23 +36,16 @@ var PizzaDetailComponent = (function () {
             }
         });
     };
-    /*goBack(): void {
-      window.history.back();
-    }*/
-    PizzaDetailComponent.prototype.goBack = function () {
-        //this.close.emit(savedHero);
-        //if (this.navigated) { window.history.back(); }
-        window.history.back();
+    PizzaDetailComponent.prototype.goBack = function (savedPizza) {
+        if (savedPizza === void 0) { savedPizza = null; }
+        this.close.emit(savedPizza);
+        if (this.navigated) {
+            window.history.back();
+        }
     };
     PizzaDetailComponent.prototype.save = function () {
-        var _this = this;
-        this.pizzaService
-            .save(this.pizza)
-            .then(function (pizza) {
-            _this.pizza = pizza; // saved hero, w/ id if new
-            //this.goBack(pizza);
-        })
-            .catch(function (error) { return _this.error = error; }); // TODO: Display error message
+        this.checkoutService.addToCheckout(this.pizza);
+        this.router.navigate(['pizzas']);
     };
     __decorate([
         core_1.Input(), 
@@ -64,7 +61,7 @@ var PizzaDetailComponent = (function () {
             templateUrl: 'app/pizza-detail.component.html',
             styleUrls: ['app/pizza-detail.component.css']
         }), 
-        __metadata('design:paramtypes', [pizza_service_1.PizzaService, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [pizza_service_1.PizzaService, checkout_service_1.CheckoutService, router_1.ActivatedRoute, router_1.Router])
     ], PizzaDetailComponent);
     return PizzaDetailComponent;
 }());
