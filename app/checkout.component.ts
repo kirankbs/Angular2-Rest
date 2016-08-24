@@ -2,6 +2,7 @@ import { Component, OnInit }        from '@angular/core'
 import {Router}                     from '@angular/router'
 
 import { Pizza }            from './pizza'
+import { PizzaService }     from './pizza.service'    
 import { CheckoutService }  from './checkout.service'
 
 @Component({
@@ -12,7 +13,9 @@ import { CheckoutService }  from './checkout.service'
 
 export class CheckoutComponent implements OnInit{
 
-    constructor(private checkoutService: CheckoutService,private router: Router){}
+    constructor(private checkoutService: CheckoutService,
+                private router: Router,
+                private pizzaService: PizzaService){}
 
     ngOnInit(): void {
         this.getPizzas();
@@ -20,6 +23,7 @@ export class CheckoutComponent implements OnInit{
 
     pizzas:Pizza[];
     selectedPizza: Pizza;
+    totalPrice: Number;
     error: any;
 
     getPizzas(): void {
@@ -34,6 +38,10 @@ export class CheckoutComponent implements OnInit{
       deletePizza(pizza: Pizza, event: any): void {
           event.stopPropagation();
           this.pizzas = this.checkoutService.removePizza(pizza);
+      }
+      postPizzaOrder(): void {
+          this.totalPrice = this.pizzaService.postPizzaOrder(this.pizzas);
+          this.router.navigate(['order',this.totalPrice])
       }
 
 }

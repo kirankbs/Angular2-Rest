@@ -12,75 +12,46 @@ import { CrustsList }                       from './mock-pizzas';
 @Injectable()
 export class PizzaService{
 
-    private _pizzassUrl = 'http://localhost:9082/pizzas';
-    //private _pizzassUrl = 'app/pizzas';
-    private _toppingsUrl = 'app/toppings';
+    private _pizzassUrl = 'http://10.30.125.95:9082/';
+
+    private headers = new Headers([{
+          'Content-Type': 'application/json'},
+          {'Access-Control-Allow-Origin':'*'}
+            ]);
 
     constructor(private http: Http){}
 
-    getPizzas(): Promise<Pizza[]> {
-        let headers = new Headers([{
-      'Content-Type': 'application/json'},
-      {'Access-Control-Allow-Origin':'*'}
-        ]);
-
-        //return Promise.resolve(PizzasList);
-        return this.http.get(this._pizzassUrl, {headers: headers})
-                    .toPromise()
-                    .then(response => response.json().data as Pizza[])
-                    .catch(this.handleError);
+    getPizzas() {
+            let headers1 = new Headers([{
+          'Content-Type': 'application/json'},
+          {'Access-Control-Allow-Origin':'*'}
+            ]);
+        return this.http.get(this._pizzassUrl+"pizzas", {headers: headers1})
+            .map(response => response.json());        
     }
-    getToppings(): Promise<Toppings[]> {
-              return new Promise(resolve => resolve(ToppingsList));
+    getToppings() {
+        return this.http.get(this._pizzassUrl+"toppings", {headers: this.headers})
+            .map(response => response.json());
     }
 
-    getCrusts(): Promise<Crust[]>{
-            return new Promise(resolve => resolve(CrustsList))
+    getCrusts(){
+          return this.http.get(this._pizzassUrl+"crusts", {headers: this.headers})
+            .map(response => response.json());
     }
 
-    getPizza(name: String): Promise<Pizza> {
-        return this.getPizzas().then(pizzas => pizzas.find(pizza => pizza.pizzaName === name))
+    getPizza(name: String) {
+        return this.getPizzas().map(pizzas => pizzas.find(pizza => pizza.pizzaName === name))
     }
 
-    save(pizza: Pizza): Promise<Pizza>  {
-    if (pizza.pizzaName) {
-      return this.put(pizza);
+    postPizzaOrder(pizzas: Pizza[]) {
+        let price = 0;                 
+         pizzas.forEach(element => {
+             price += element.price;
+         });   
+         let serviceTax = (price * 13.5)/100;
+         let vat = (price * 10.5)/100
+         return price + serviceTax + vat;
     }
-    return this.post(pizza);
-  }
-
-  delete(pizza: Pizza): Promise<Response> {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    let url = `${this._pizzassUrl}/${pizza.pizzaName}`;
-    return this.http
-               .delete(url, {headers: headers})
-               .toPromise()
-               .catch(this.handleError);
-  }
-
-  private post(pizza: Pizza): Promise<Pizza> {
-    let headers = new Headers({
-      'Content-Type': 'application/json'});
-    return this.http
-               .post(this._pizzassUrl, JSON.stringify(pizza), {headers: headers})
-               .toPromise()
-               .then(res => res.json().data)
-               .catch(this.handleError);
-  }
-
-  private put(pizza: Pizza): Promise<Pizza> {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    let url = `${this._pizzassUrl}/${pizza.pizzaName}`;
-    console.info(url);
-    console.info(JSON.stringify(pizza));
-    return this.http
-               .put(url, JSON.stringify(pizza), {headers: headers})
-               .toPromise()
-               .then(() => pizza)
-               .catch(this.handleError);
-  }
 
     private handleError(error: any): Promise<any> {
          console.error('An error occurred', error);

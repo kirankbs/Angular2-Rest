@@ -1,0 +1,10 @@
+<h2>Order Summary</h2>
+<div>
+    <ul class="pizzas">
+        <li *ngFor= "let pizza of pizzas">
+            <b class="pizzaName">{{pizza.pizzaName}}</b><label class="PizzaPrice">{{pizza.price}}</label>
+        </li>
+    </ul>
+<div>
+
+<b class="pizzaName">Total(service+vat+price)</b><label class="PizzaPrice">{{totalPrice}}</label>

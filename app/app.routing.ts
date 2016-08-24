@@ -1,8 +1,11 @@
-import { Routes, RouterModule } from '@angular/router';
-import { PizzasComponent } from './pizzas.component';
-import { DashboardComponent } from './dashboard.component'
-import { PizzaDetailComponent } from './pizza-detail.component'
-import { CheckoutComponent }    from './checkout.component'
+import { Routes, RouterModule }     from '@angular/router';
+
+
+import { PizzasComponent }          from './pizzas.component';
+import { DashboardComponent }       from './dashboard.component'
+import { PizzaDetailComponent }     from './pizza-detail.component'
+import { CheckoutComponent }        from './checkout.component'
+import { OrderComponent}            from './order.component'
 
 const appRoutes: Routes = [
     {
@@ -25,6 +28,10 @@ const appRoutes: Routes = [
     {
         path: 'checkout',
         component: CheckoutComponent
+    },
+    {
+        path: 'order/:total',
+        component: OrderComponent
     }
 ];
 

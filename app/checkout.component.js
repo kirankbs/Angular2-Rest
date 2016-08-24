@@ -10,11 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var pizza_service_1 = require('./pizza.service');
 var checkout_service_1 = require('./checkout.service');
 var CheckoutComponent = (function () {
-    function CheckoutComponent(checkoutService, router) {
+    function CheckoutComponent(checkoutService, router, pizzaService) {
         this.checkoutService = checkoutService;
         this.router = router;
+        this.pizzaService = pizzaService;
     }
     CheckoutComponent.prototype.ngOnInit = function () {
         this.getPizzas();
@@ -31,13 +33,17 @@ var CheckoutComponent = (function () {
         event.stopPropagation();
         this.pizzas = this.checkoutService.removePizza(pizza);
     };
+    CheckoutComponent.prototype.postPizzaOrder = function () {
+        this.totalPrice = this.pizzaService.postPizzaOrder(this.pizzas);
+        this.router.navigate(['order', this.totalPrice]);
+    };
     CheckoutComponent = __decorate([
         core_1.Component({
             selector: 'pizza-checkout',
             templateUrl: 'app/checkout.component.html',
             styleUrls: ['app/pizzas.component.css']
         }), 
-        __metadata('design:paramtypes', [checkout_service_1.CheckoutService, router_1.Router])
+        __metadata('design:paramtypes', [checkout_service_1.CheckoutService, router_1.Router, pizza_service_1.PizzaService])
     ], CheckoutComponent);
     return CheckoutComponent;
 }());

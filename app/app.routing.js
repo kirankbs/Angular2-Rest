@@ -4,6 +4,7 @@ var pizzas_component_1 = require('./pizzas.component');
 var dashboard_component_1 = require('./dashboard.component');
 var pizza_detail_component_1 = require('./pizza-detail.component');
 var checkout_component_1 = require('./checkout.component');
+var order_component_1 = require('./order.component');
 var appRoutes = [
     {
         path: '',
@@ -25,6 +26,10 @@ var appRoutes = [
     {
         path: 'checkout',
         component: checkout_component_1.CheckoutComponent
+    },
+    {
+        path: 'order/:total',
+        component: order_component_1.OrderComponent
     }
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);

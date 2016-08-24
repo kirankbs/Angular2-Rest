@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit{
 
     ngOnInit(): void {
         this.pizzaService.getPizzas()
-            .then(pizzas => this.pizzas = pizzas.slice(1,10));
+            .subscribe(pizzas => this.pizzas = pizzas.slice(1,10));
     }
 
     gotoDetail(pizza: Pizza ): void {

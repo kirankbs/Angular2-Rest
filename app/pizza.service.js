@@ -11,70 +11,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var http_1 = require('@angular/http');
 var core_1 = require('@angular/core');
 require('rxjs/add/operator/toPromise');
-var mock_pizzas_1 = require('./mock-pizzas');
-var mock_pizzas_2 = require('./mock-pizzas');
 var PizzaService = (function () {
     function PizzaService(http) {
         this.http = http;
-        this._pizzassUrl = 'http://localhost:9082/pizzas';
-        //private _pizzassUrl = 'app/pizzas';
-        this._toppingsUrl = 'app/toppings';
-    }
-    PizzaService.prototype.getPizzas = function () {
-        var headers = new http_1.Headers([{
+        this._pizzassUrl = 'http://10.30.125.95:9082/';
+        this.headers = new http_1.Headers([{
                 'Content-Type': 'application/json' },
             { 'Access-Control-Allow-Origin': '*' }
         ]);
-        //return Promise.resolve(PizzasList);
-        return this.http.get(this._pizzassUrl, { headers: headers })
-            .toPromise()
-            .then(function (response) { return response.json().data; })
-            .catch(this.handleError);
+    }
+    PizzaService.prototype.getPizzas = function () {
+        var headers1 = new http_1.Headers([{
+                'Content-Type': 'application/json' },
+            { 'Access-Control-Allow-Origin': '*' }
+        ]);
+        return this.http.get(this._pizzassUrl + "pizzas", { headers: headers1 })
+            .map(function (response) { return response.json(); });
     };
     PizzaService.prototype.getToppings = function () {
-        return new Promise(function (resolve) { return resolve(mock_pizzas_1.ToppingsList); });
+        return this.http.get(this._pizzassUrl + "toppings", { headers: this.headers })
+            .map(function (response) { return response.json(); });
     };
     PizzaService.prototype.getCrusts = function () {
-        return new Promise(function (resolve) { return resolve(mock_pizzas_2.CrustsList); });
+        return this.http.get(this._pizzassUrl + "crusts", { headers: this.headers })
+            .map(function (response) { return response.json(); });
     };
     PizzaService.prototype.getPizza = function (name) {
-        return this.getPizzas().then(function (pizzas) { return pizzas.find(function (pizza) { return pizza.pizzaName === name; }); });
+        return this.getPizzas().map(function (pizzas) { return pizzas.find(function (pizza) { return pizza.pizzaName === name; }); });
     };
-    PizzaService.prototype.save = function (pizza) {
-        if (pizza.pizzaName) {
-            return this.put(pizza);
-        }
-        return this.post(pizza);
-    };
-    PizzaService.prototype.delete = function (pizza) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        var url = this._pizzassUrl + "/" + pizza.pizzaName;
-        return this.http
-            .delete(url, { headers: headers })
-            .toPromise()
-            .catch(this.handleError);
-    };
-    PizzaService.prototype.post = function (pizza) {
-        var headers = new http_1.Headers({
-            'Content-Type': 'application/json' });
-        return this.http
-            .post(this._pizzassUrl, JSON.stringify(pizza), { headers: headers })
-            .toPromise()
-            .then(function (res) { return res.json().data; })
-            .catch(this.handleError);
-    };
-    PizzaService.prototype.put = function (pizza) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        var url = this._pizzassUrl + "/" + pizza.pizzaName;
-        console.info(url);
-        console.info(JSON.stringify(pizza));
-        return this.http
-            .put(url, JSON.stringify(pizza), { headers: headers })
-            .toPromise()
-            .then(function () { return pizza; })
-            .catch(this.handleError);
+    PizzaService.prototype.postPizzaOrder = function (pizzas) {
+        var price = 0;
+        pizzas.forEach(function (element) {
+            price += element.price;
+        });
+        var serviceTax = (price * 13.5) / 100;
+        var vat = (price * 10.5) / 100;
+        return price + serviceTax + vat;
     };
     PizzaService.prototype.handleError = function (error) {
         console.error('An error occurred', error);

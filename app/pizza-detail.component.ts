@@ -34,7 +34,7 @@ ngOnInit(): void {
     if (params['name'] !== undefined) {
     let name = params['name'];
     this.navigated = true;
-    this.pizzaService.getPizza(name).then(pizza => this.pizza = pizza);
+    this.pizzaService.getPizza(name).subscribe(pizza => this.pizza = pizza);
     } else {
       this.navigated = false;
       this.pizza = new Pizza();
@@ -65,9 +65,9 @@ onSelectCrust(crust: Crust): void {
 }
 
 getToppings(): void {
-  this.pizzaService.getToppings().then(toppings => this.toppings = toppings);
+  this.pizzaService.getToppings().subscribe(toppings => this.toppings = toppings);
 }
 getCrusts(): void {
-  this.pizzaService.getCrusts().then(crusts => this.crusts = crusts);
+  this.pizzaService.getCrusts().subscribe(crusts => this.crusts = crusts);
 }
 }

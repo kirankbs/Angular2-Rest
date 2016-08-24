@@ -20,7 +20,7 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.pizzaService.getPizzas()
-            .then(function (pizzas) { return _this.pizzas = pizzas.slice(1, 10); });
+            .subscribe(function (pizzas) { return _this.pizzas = pizzas.slice(1, 10); });
     };
     DashboardComponent.prototype.gotoDetail = function (pizza) {
         var link = ['/detail', pizza.pizzaName];

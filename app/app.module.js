@@ -20,6 +20,7 @@ var app_routing_1 = require('./app.routing');
 var dashboard_component_1 = require('./dashboard.component');
 var checkout_component_1 = require('./checkout.component');
 var checkout_service_1 = require('./checkout.service');
+var order_component_1 = require('./order.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -36,7 +37,8 @@ var AppModule = (function () {
                 pizzas_component_1.PizzasComponent,
                 pizza_detail_component_1.PizzaDetailComponent,
                 dashboard_component_1.DashboardComponent,
-                checkout_component_1.CheckoutComponent
+                checkout_component_1.CheckoutComponent,
+                order_component_1.OrderComponent
             ],
             providers: [
                 pizza_service_1.PizzaService, checkout_service_1.CheckoutService

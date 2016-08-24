@@ -30,8 +30,8 @@ export class PizzasComponent implements OnInit{
       }
 
     getPizzas(): void {
-        this.pizzaService.getPizzas().then(pizzas => this.pizzas = pizzas);
-        console.info(this.pizzas+"***********")
+        this.pizzaService.getPizzas().subscribe(pizzas => this.pizzas = pizzas);
+        console.info(this.pizzas)
     }
 
     gotoDetail(): void {

@@ -28,7 +28,7 @@ var PizzaDetailComponent = (function () {
             if (params['name'] !== undefined) {
                 var name_1 = params['name'];
                 _this.navigated = true;
-                _this.pizzaService.getPizza(name_1).then(function (pizza) { return _this.pizza = pizza; });
+                _this.pizzaService.getPizza(name_1).subscribe(function (pizza) { return _this.pizza = pizza; });
             }
             else {
                 _this.navigated = false;
@@ -57,11 +57,11 @@ var PizzaDetailComponent = (function () {
     };
     PizzaDetailComponent.prototype.getToppings = function () {
         var _this = this;
-        this.pizzaService.getToppings().then(function (toppings) { return _this.toppings = toppings; });
+        this.pizzaService.getToppings().subscribe(function (toppings) { return _this.toppings = toppings; });
     };
     PizzaDetailComponent.prototype.getCrusts = function () {
         var _this = this;
-        this.pizzaService.getCrusts().then(function (crusts) { return _this.crusts = crusts; });
+        this.pizzaService.getCrusts().subscribe(function (crusts) { return _this.crusts = crusts; });
     };
     __decorate([
         core_1.Input(), 
